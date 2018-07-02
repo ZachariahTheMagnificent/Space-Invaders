@@ -15,5 +15,5 @@ private:
 
 	static constexpr int speed = 10;
 	static constexpr int width = 5;
-	static constexpr int height = 12;
+	static constexpr int height = 20;
 };

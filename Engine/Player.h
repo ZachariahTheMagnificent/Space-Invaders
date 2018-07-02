@@ -18,7 +18,7 @@ private:
 	static constexpr int WIDTH = 50;
 	static constexpr int HEIGHT = 30;
 
-	int posX = Graphics::ScreenWidth / 2;
+	int posX = Graphics::ScreenWidth / 2 - WIDTH;
 	float fireCooldown = 0;
 	int nextProjectileID = 0;
 };

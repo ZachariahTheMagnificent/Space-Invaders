@@ -3,8 +3,8 @@
 
 void Player::Update(Keyboard& kbd) {
 	fireCooldown += ft.Mark();
-	if(kbd.KeyIsPressed(VK_SPACE) && fireCooldown >= 0.5f) {
-		projectiles.push_back(Projectile(posX, ELEVATION, nextProjectileID));
+	if(kbd.KeyIsPressed(VK_SPACE) && fireCooldown >= 0.2f) {
+		projectiles.push_back(Projectile(posX + (WIDTH / 2), ELEVATION, nextProjectileID));
 		fireCooldown = 0;
 		++nextProjectileID;
 	}
@@ -16,12 +16,7 @@ void Player::Update(Keyboard& kbd) {
 		posX += SPEED;
 	}
 
-	for(Projectile& p : projectiles) {
-		if(p.Update()) {
-			const auto pos = std::find(projectiles.begin(), projectiles.end(), p);
-			projectiles.erase(pos);
-		}
-	}
+	projectiles.erase(std::remove_if(projectiles.begin(), projectiles.end(), [](Projectile& p) { return p.Update(); }), projectiles.end());
 }
 
 void Player::Draw(Graphics& gfx) {
