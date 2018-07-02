@@ -26,6 +26,7 @@ int Projectile::Update(std::vector<Enemy>& enemies) {
 			posY <= ENEMY_BOTTOM &&
 			BOTTOM >= enemy.GetY()) {
 			hitEnemy = true;
+			enemy.MarkForDeletion();
 		}
 	}
 

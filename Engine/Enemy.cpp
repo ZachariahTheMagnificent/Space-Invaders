@@ -13,8 +13,12 @@ void Enemy::Draw(Graphics& gfx) const {
 	}
 }
 
-void Enemy::Update() {
+int Enemy::Update() {
+	return toBeDeleted;
+}
 
+void Enemy::MarkForDeletion() {
+	toBeDeleted = true;
 }
 
 int Enemy::GetX() const {

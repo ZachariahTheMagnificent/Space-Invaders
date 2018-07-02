@@ -4,7 +4,8 @@ class Enemy {
 public:
 	Enemy(const int in_x, const int in_y);
 	void Draw(Graphics& gfx) const;
-	void Update();
+	int Update();
+	void MarkForDeletion();
 	int GetX() const;
 	int GetY() const;
 
@@ -12,6 +13,7 @@ public:
 	static constexpr int HEIGHT = 25;
 private:
 	int posX, posY;
+	bool toBeDeleted = false;
 
 	static constexpr int SPEED = 3;
 };
