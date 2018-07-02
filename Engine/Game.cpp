@@ -22,7 +22,21 @@
 #include "Game.h"
 
 Game::Game(MainWindow& wnd): wnd(wnd), gfx(wnd) {
+	int y = ENEMY_Y_BORDER;
+	int x = ENEMY_X_BORDER;
+	int row = 1;
+	int column = 1;
 
+	for(int enemyNumber = 0; enemyNumber < ENEMY_COUNT; ++enemyNumber) {
+		enemies.push_back(Enemy(x, y));
+
+		x = column++ * Enemy::WIDTH + ENEMY_SPACING;
+
+		if(x > Graphics::ScreenWidth - Enemy::WIDTH - ENEMY_X_BORDER) {
+			x = ENEMY_X_BORDER;
+			y = row++ * Enemy::HEIGHT + ENEMY_SPACING;
+		}
+	}
 }
 
 void Game::Go() {
@@ -33,9 +47,15 @@ void Game::Go() {
 }
 
 void Game::UpdateModel() {
-	player.Update(wnd.kbd);
+	player.Update(wnd.kbd, enemies);
+	for(Enemy& enemy : enemies) {
+		enemy.Update();
+	}
 }
 
 void Game::ComposeFrame() {
 	player.Draw(gfx);
+	for(Enemy& enemy : enemies) {
+		enemy.Draw(gfx);
+	}
 }

@@ -7,8 +7,8 @@
 
 class Player {
 public:
-	void Update(Keyboard& kbd);
-	void Draw(Graphics& gfx);
+	void Update(Keyboard& kbd, std::vector<Enemy>& enemies);
+	void Draw(Graphics& gfx) const;
 	static constexpr int ELEVATION = Graphics::ScreenHeight - 50;
 private:
 	FrameTimer ft;
@@ -16,7 +16,7 @@ private:
 
 	static constexpr int SPEED = 3;
 	static constexpr int WIDTH = 50;
-	static constexpr int HEIGHT = 30;
+	static constexpr int HEIGHT = 25;
 
 	int posX = Graphics::ScreenWidth / 2 - WIDTH;
 	float fireCooldown = 0;

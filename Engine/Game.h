@@ -24,6 +24,7 @@
 #include "Mouse.h"
 #include "Graphics.h"
 #include "Player.h"
+#include "Enemy.h"
 
 class Game {
 public:
@@ -43,5 +44,11 @@ private:
 	/********************************/
 	/*  User Variables              */
 	Player player;
+	std::vector<Enemy> enemies;
+
+	static constexpr int ENEMY_COUNT = 2;
+	static constexpr int ENEMY_X_BORDER = 15;
+	static constexpr int ENEMY_Y_BORDER = 15;
+	static constexpr int ENEMY_SPACING = 30;
 	/********************************/
 };
