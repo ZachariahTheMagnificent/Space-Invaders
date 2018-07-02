@@ -11,7 +11,7 @@ bool Projectile::operator==(const Projectile& other) const {
 }
 
 int Projectile::Update() {
-	posY -= speed;
+	posY -= SPEED;
 
 	if(posY < 0) {
 		return 1;
@@ -20,8 +20,8 @@ int Projectile::Update() {
 }
 
 void Projectile::Draw(Graphics& gfx) {
-	for(int y = posY; y < posY + height; ++y) {
-		for(int x = posX; x < posX + width; ++x) {
+	for(int y = posY; y < posY + HEIGHT; ++y) {
+		for(int x = posX; x < posX + WIDTH; ++x) {
 			gfx.PutPixel(x, y, Colors::Red);
 		}
 	}

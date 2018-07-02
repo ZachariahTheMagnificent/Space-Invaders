@@ -3,7 +3,7 @@
 
 void Player::Update(Keyboard& kbd) {
 	fireCooldown += ft.Mark();
-	if(kbd.KeyIsPressed(VK_SPACE) && fireCooldown >= 0.2f) {
+	if(kbd.KeyIsPressed(VK_SPACE) && fireCooldown >= 0.4f) {
 		projectiles.push_back(Projectile(posX + (WIDTH / 2), ELEVATION, nextProjectileID));
 		fireCooldown = 0;
 		++nextProjectileID;

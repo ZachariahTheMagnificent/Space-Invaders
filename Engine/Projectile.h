@@ -13,7 +13,7 @@ private:
 	int posY;
 	int id;
 
-	static constexpr int speed = 10;
-	static constexpr int width = 5;
-	static constexpr int height = 20;
+	static constexpr int SPEED = 10;
+	static constexpr int WIDTH = 5;
+	static constexpr int HEIGHT = 20;
 };
