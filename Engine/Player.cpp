@@ -9,10 +9,10 @@ void Player::Update(Keyboard& kbd, std::vector<Enemy>& enemies) {
 		++nextProjectileID;
 	}
 
-	if(kbd.KeyIsPressed(VK_LEFT)) {
+	if(kbd.KeyIsPressed(VK_LEFT) && posX > 0 + SPEED) {
 		posX -= SPEED;
 	}
-	if(kbd.KeyIsPressed(VK_RIGHT)) {
+	if(kbd.KeyIsPressed(VK_RIGHT) && posX + WIDTH < Graphics::ScreenWidth - SPEED) {
 		posX += SPEED;
 	}
 
