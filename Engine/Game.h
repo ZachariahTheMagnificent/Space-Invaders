@@ -46,9 +46,9 @@ private:
 	Player player;
 	std::vector<Enemy> enemies;
 
-	static constexpr int ENEMY_COUNT = 2;
+	static constexpr int ENEMY_COUNT = 6;
 	static constexpr int ENEMY_X_BORDER = 15;
 	static constexpr int ENEMY_Y_BORDER = 15;
-	static constexpr int ENEMY_SPACING = 30;
+	static constexpr int ENEMY_SPACING = 10;
 	/********************************/
 };

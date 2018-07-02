@@ -24,17 +24,14 @@
 Game::Game(MainWindow& wnd): wnd(wnd), gfx(wnd) {
 	int y = ENEMY_Y_BORDER;
 	int x = ENEMY_X_BORDER;
-	int row = 1;
-	int column = 1;
 
-	for(int enemyNumber = 0; enemyNumber < ENEMY_COUNT; ++enemyNumber) {
+	for(int i = 0; i < ENEMY_COUNT; ++i) {
 		enemies.push_back(Enemy(x, y));
 
-		x = column++ * Enemy::WIDTH + ENEMY_SPACING;
-
+		x += Enemy::WIDTH + ENEMY_SPACING;
 		if(x > Graphics::ScreenWidth - Enemy::WIDTH - ENEMY_X_BORDER) {
 			x = ENEMY_X_BORDER;
-			y = row++ * Enemy::HEIGHT + ENEMY_SPACING;
+			y += Enemy::HEIGHT + ENEMY_SPACING;
 		}
 	}
 }
