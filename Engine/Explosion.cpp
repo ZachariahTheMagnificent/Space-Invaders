@@ -1,7 +1,7 @@
 #include "Explosion.h"
 #include "Game.h"
 
-Explosion::Explosion(int in_x, int in_y, int maximumRadius, int startRadius): redDist(220, 255), greenDist(0, 20), blueDist(50, 255) {
+Explosion::Explosion(int in_x, int in_y, int maximumRadius, int startRadius): redDist(220, 255), greenDist(50, 255), blueDist(0, 15) {
 	x = in_x;
 	y = in_y;
 	maxRadius = maximumRadius;
@@ -12,7 +12,7 @@ bool Explosion::Update() {
 	updateCooldown += Game::GetDeltaTime();
 
 	if(radius < maxRadius) {
-		if(updateCooldown > 0.2f){
+		if(updateCooldown > 0.05f){
 			++radius;
 			std::mt19937 rng(time(0));
 

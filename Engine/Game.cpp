@@ -56,15 +56,21 @@ void Game::Go() {
 
 void Game::UpdateModel() {
 	player.Update(wnd.kbd, enemies);
-	enemies.erase(std::remove_if(enemies.begin(), enemies.end(), [](Enemy* e) {
-		if(e->Update()) {
-			delete e;
-			return true;
-		} else {
-			return false;
-		}
-	}), enemies.end());
+	for(Enemy* enemy : enemies) {
+		enemy->Update();
+	}
 	explosions.erase(std::remove_if(explosions.begin(), explosions.end(), [](Explosion& e) { return e.Update(); }), explosions.end());
+
+	auto newEnd = enemies.end();
+	for(Enemy* enemy : enemies) {
+		if(enemy->IsDead()) {
+			enemy->OnDestroy();
+			const auto back = *(newEnd - 1);
+			enemy = back;
+			--newEnd;
+		}
+	}
+	enemies.erase(newEnd, enemies.end());
 }
 
 float Game::GetDeltaTime() {

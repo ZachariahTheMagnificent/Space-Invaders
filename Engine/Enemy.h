@@ -8,9 +8,11 @@ public:
 
 	void Draw(Graphics& gfx) const;
 
-	int Update();
+	void Update();
 
 	void MarkForDeletion();
+	bool IsDead() const;
+	void OnDestroy();
 
 	int GetX() const;
 	int GetY() const;
