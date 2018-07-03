@@ -5,7 +5,8 @@
 class Explosion {
 public:
 	Explosion(int in_x, int in_y, int maximumRadius, int startRadius);
-	bool Update(Graphics& gfx);
+	bool Update();
+	void Draw(Graphics& gfx);
 private:
 	Color color = {255, 0, 0};
 	float updateCooldown = 0.0f;

@@ -49,6 +49,7 @@ void Game::Go() {
 void Game::UpdateModel() {
 	player.Update(wnd.kbd, enemies);
 	enemies.erase(std::remove_if(enemies.begin(), enemies.end(), [](Enemy& e) { return e.Update(); }), enemies.end());
+	explosions.erase(std::remove_if(explosions.begin(), explosions.end(), [](Explosion& e) { return e.Update(); }), explosions.end());
 }
 
 float Game::GetDeltaTime() {
@@ -71,7 +72,9 @@ void Game::ComposeFrame() {
 	for(Enemy& enemy : enemies) {
 		enemy.Draw(gfx);
 	}
-	explosions.erase(std::remove_if(explosions.begin(), explosions.end(), [&](Explosion& e) { return e.Update(gfx); }), explosions.end());
+	for(Explosion& e : explosions) {
+		e.Draw(gfx);
+	}
 
 	if(fpsUpdateCooldown > 0.2f) {
 		fps = (int)round(1.0f / deltatime);

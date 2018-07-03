@@ -8,8 +8,7 @@ Explosion::Explosion(int in_x, int in_y, int maximumRadius, int startRadius): re
 	radius = startRadius;
 }
 
-bool Explosion::Update(Graphics& gfx) {
-	gfx.DrawCircle(x, y, radius, color);
+bool Explosion::Update() {
 	updateCooldown += Game::GetDeltaTime();
 
 	if(radius < maxRadius) {
@@ -28,4 +27,8 @@ bool Explosion::Update(Graphics& gfx) {
 		return true;
 	}
 	return false;
+}
+
+void Explosion::Draw(Graphics& gfx) {
+	gfx.DrawCircle(x, y, radius, color);
 }
