@@ -12,7 +12,8 @@ bool Projectile::operator==(const Projectile& other) const {
 }
 
 int Projectile::Update(std::vector<Enemy>& enemies) {
-	posY -= SPEED;
+	const float dt = Game::GetDeltaTime();
+	posY -= SPEED * dt;
 
 	bool hitEnemy = false;
 	const int RIGHT = posX + WIDTH;

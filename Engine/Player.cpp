@@ -3,18 +3,21 @@
 #include "Game.h"
 
 void Player::Update(Keyboard& kbd, std::vector<Enemy>& enemies) {
-	fireCooldown += Game::GetDeltaTime();
-	if(kbd.KeyIsPressed(VK_SPACE) && fireCooldown >= 0.4f) {
+	const float dt = Game::GetDeltaTime();
+	fireCooldown += dt;
+	if(kbd.KeyIsPressed(VK_SPACE) && fireCooldown >= 0.5f) {
 		projectiles.push_back(Projectile(posX + (WIDTH / 2), ELEVATION, nextProjectileID));
 		fireCooldown = 0;
 		++nextProjectileID;
 	}
 
-	if(kbd.KeyIsPressed(VK_LEFT) && posX > 0 + SPEED) {
-		posX -= SPEED;
+	const float speed = SPEED * dt;
+	const int limit = (int)ceil(speed);
+	if(kbd.KeyIsPressed(VK_LEFT) && posX > 0 + limit) {
+		posX -= (int)speed;
 	}
-	if(kbd.KeyIsPressed(VK_RIGHT) && posX + WIDTH < Graphics::ScreenWidth - SPEED) {
-		posX += SPEED;
+	if(kbd.KeyIsPressed(VK_RIGHT) && posX + WIDTH < Graphics::ScreenWidth - limit) {
+		posX += (int)speed;
 	}
 
 	projectiles.erase(std::remove_if(projectiles.begin(), projectiles.end(), [&enemies](Projectile& p) { return p.Update(enemies); }), projectiles.end());

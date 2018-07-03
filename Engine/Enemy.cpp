@@ -2,8 +2,8 @@
 #include "Game.h"
 #include <random>
 
-int Enemy::horSpeed = 1;
-int Enemy::vertSpeed = 0;
+float Enemy::horSpeed = 40.0f;
+float Enemy::vertSpeed = 0.0f;
 
 Enemy::Enemy(const int in_x, const int in_y) {
 	posX = in_x;
@@ -27,8 +27,24 @@ void Enemy::Draw(Graphics& gfx) const {
 	gfx.DrawRect(posX, posY, WIDTH, HEIGHT, Colors::Yellow);
 }
 
+void Enemy::Move() {
+	const float dt = Game::GetDeltaTime();
+
+	posX += (int)(horSpeed * dt);
+	if(horSpeed > 0) {
+		posX = std::min(posX, Graphics::ScreenWidth - WIDTH);
+	} else {
+		posX = std::max(posX, 0);
+	}
+
+	vertSpeed = 0.0f;
+}
+
 void Enemy::Update() {
-	//TODO: Move enemy around, shoot
+	if(posX < 0 || posX >= Graphics::ScreenWidth - WIDTH) {
+		horSpeed = -horSpeed;
+		vertSpeed = 60.0f;
+	}
 }
 
 void Enemy::MarkForDeletion() {

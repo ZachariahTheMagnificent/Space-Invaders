@@ -13,7 +13,7 @@ public:
 private:
 	std::vector<Projectile> projectiles;
 
-	static constexpr int SPEED = 3;
+	static constexpr float SPEED = 160.0f;
 	static constexpr int WIDTH = 50;
 	static constexpr int HEIGHT = 25;
 

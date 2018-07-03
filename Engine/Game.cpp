@@ -49,6 +49,7 @@ void Game::Go() {
 void Game::UpdateModel() {
 	player.Update(wnd.kbd, enemies);
 	for(Enemy& enemy : enemies) {
+		enemy.Move();
 		enemy.Update();
 	}
 	explosions.erase(std::remove_if(explosions.begin(), explosions.end(), [](Explosion& e) { return e.Update(); }), explosions.end());

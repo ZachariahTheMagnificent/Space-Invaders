@@ -14,7 +14,7 @@ private:
 	int posY;
 	int id;
 
-	static constexpr int SPEED = 10;
+	static constexpr float SPEED = 500.0f;
 	static constexpr int WIDTH = 7;
 	static constexpr int HEIGHT = 25;
 };

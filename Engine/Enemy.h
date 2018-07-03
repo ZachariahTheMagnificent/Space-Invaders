@@ -7,6 +7,7 @@ public:
 
 	void Draw(Graphics& gfx) const;
 
+	void Move();
 	void Update();
 
 	void MarkForDeletion();
@@ -22,6 +23,6 @@ private:
 	int posX, posY;
 	bool toBeDeleted = false;
 
-	static int horSpeed;
-	static int vertSpeed;
+	static float horSpeed;
+	static float vertSpeed;
 };
