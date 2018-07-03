@@ -356,6 +356,22 @@ void Graphics::PutPixel(int x, int y, Color c) {
 	pSysBuffer[Graphics::ScreenWidth * y + x] = c;
 }
 
+void Graphics::DrawCircle(int centerX, int centerY, int radius, Color c) {
+	const int topLeftX = centerX - radius;
+	const int topLeftY = centerY - radius;
+	const int diameter = radius * 2;
+
+	for(int y = topLeftY; y < topLeftY + diameter; ++y) {
+		for(int x = topLeftX; x < topLeftX + diameter; ++x) {
+			const int DistanceSquared = pow(x - centerX, 2) - pow(y - centerY, 2);
+
+			if(DistanceSquared <= pow(radius, 2)) {
+				PutPixel(x, y, c);
+			}
+		}
+	}
+}
+
 void Graphics::DrawRect(int posX, int posY, int width, int height, Color c) {
 	for(int y = posY; y < posY + height; ++y) {
 		for(int x = posX; x < posX + width; ++x) {
