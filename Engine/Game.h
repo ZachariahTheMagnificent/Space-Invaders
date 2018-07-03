@@ -58,10 +58,9 @@ private:
 	static int score;
 
 	static constexpr int ENEMY_COUNT = 39;
+	static constexpr int ENEMY_SPACING = 6;
+public:
 	static constexpr int X_BORDER = 35;
 	static constexpr int Y_BORDER = 46;
-	static constexpr int ENEMY_SPACING = 6;
-
-	static constexpr int SCORE_OFFSET = 10;
 	/********************************/
 };

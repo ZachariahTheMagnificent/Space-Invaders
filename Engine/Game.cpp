@@ -47,7 +47,11 @@ void Game::Go() {
 
 void Game::UpdateModel() {
 	player.Update(wnd.kbd, enemies);
-	enemies.erase(std::remove_if(enemies.begin(), enemies.end(), [](Enemy& e) { return e.Update(); }), enemies.end());
+	
+	for(Enemy& e : enemies) {
+		e.UpdateSpeed();
+	}
+	enemies.erase(std::remove_if(enemies.begin(), enemies.end(), [](Enemy& e) { return e.UpdatePosition(); }), enemies.end());
 }
 
 float Game::GetDeltaTime() {
@@ -67,7 +71,7 @@ void Game::ComposeFrame() {
 		enemy.Draw(gfx);
 	}
 
-	if(fpsUpdateCooldown > 0.1f) {
+	if(fpsUpdateCooldown > 0.2f) {
 		fps = (int)round(1.0f / deltatime);
 		fpsUpdateCooldown = 0.0f;
 	}
