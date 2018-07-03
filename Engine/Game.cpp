@@ -20,17 +20,19 @@
  ******************************************************************************************/
 #include "MainWindow.h"
 #include "Game.h"
+float Game::deltatime = 0;
+int Game::score = 0;
 
 Game::Game(MainWindow& wnd): wnd(wnd), gfx(wnd) {
-	int y = ENEMY_Y_BORDER;
-	int x = ENEMY_X_BORDER;
+	int y = Y_BORDER;
+	int x = X_BORDER;
 
 	for(int i = 0; i < ENEMY_COUNT; ++i) {
 		enemies.push_back(Enemy(x, y));
 
 		x += Enemy::WIDTH + ENEMY_SPACING;
-		if(x > Graphics::ScreenWidth - Enemy::WIDTH - ENEMY_X_BORDER) {
-			x = ENEMY_X_BORDER;
+		if(x > Graphics::ScreenWidth - Enemy::WIDTH - X_BORDER) {
+			x = X_BORDER;
 			y += Enemy::HEIGHT + ENEMY_SPACING;
 		}
 	}
@@ -48,9 +50,28 @@ void Game::UpdateModel() {
 	enemies.erase(std::remove_if(enemies.begin(), enemies.end(), [](Enemy& e) { return e.Update(); }), enemies.end());
 }
 
+float Game::GetDeltaTime() {
+	return deltatime;
+}
+
+void Game::IncrementScore() {
+	score += 100;
+}
+
 void Game::ComposeFrame() {
+	deltatime = ft.Mark();
+	fpsUpdateCooldown += deltatime;
+
 	player.Draw(gfx);
 	for(Enemy& enemy : enemies) {
 		enemy.Draw(gfx);
 	}
+
+	if(fpsUpdateCooldown > 0.1f) {
+		fps = (int)round(1.0f / deltatime);
+		fpsUpdateCooldown = 0.0f;
+	}
+
+	gfx.DrawNumber(fps, Graphics::ScreenWidth - (((int)std::to_string(fps).length() + 1) * Graphics::DIGIT_WIDTH) - 5, 5);
+	gfx.DrawNumber(score, 5, 5);
 }

@@ -25,6 +25,7 @@
 #include "Graphics.h"
 #include "Player.h"
 #include "Enemy.h"
+#include "FrameTimer.h"
 
 class Game {
 public:
@@ -37,18 +38,30 @@ private:
 	void UpdateModel();
 	/********************************/
 	/*  User Functions              */
+public:
+	static float GetDeltaTime();
+	static void IncrementScore();
 	/********************************/
 private:
 	MainWindow& wnd;
 	Graphics gfx;
 	/********************************/
 	/*  User Variables              */
+	FrameTimer ft;
+	static float deltatime;
+	float fpsUpdateCooldown = 0.0f;
+	int fps = 0;
+
 	Player player;
 	std::vector<Enemy> enemies;
 
-	static constexpr int ENEMY_COUNT = 6;
-	static constexpr int ENEMY_X_BORDER = 15;
-	static constexpr int ENEMY_Y_BORDER = 15;
-	static constexpr int ENEMY_SPACING = 10;
+	static int score;
+
+	static constexpr int ENEMY_COUNT = 39;
+	static constexpr int X_BORDER = 35;
+	static constexpr int Y_BORDER = 46;
+	static constexpr int ENEMY_SPACING = 6;
+
+	static constexpr int SCORE_OFFSET = 10;
 	/********************************/
 };

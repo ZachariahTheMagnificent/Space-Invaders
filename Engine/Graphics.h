@@ -57,8 +57,17 @@ public:
 		PutPixel( x,y,{ unsigned char( r ),unsigned char( g ),unsigned char( b ) } );
 	}
 	void PutPixel( int x,int y,Color c );
+	void DrawRect(int x, int y, int width, int height, Color c);
+	void DrawNumber(int number, int x, int y);
 	~Graphics();
 private:
+	static constexpr int VERT_SEG_WIDTH = 5;
+	static constexpr int VERT_SEG_HEIGHT = 20;
+	static constexpr int HOR_SEG_WIDTH = 14;
+	static constexpr int HOR_SEG_HEIGHT = 5;
+
+	void DrawDigit(int digit, int x, int y);
+
 	Microsoft::WRL::ComPtr<IDXGISwapChain>				pSwapChain;
 	Microsoft::WRL::ComPtr<ID3D11Device>				pDevice;
 	Microsoft::WRL::ComPtr<ID3D11DeviceContext>			pImmediateContext;
@@ -75,4 +84,6 @@ private:
 public:
 	static constexpr int ScreenWidth = 800;
 	static constexpr int ScreenHeight = 600;
+
+	static constexpr int DIGIT_WIDTH = HOR_SEG_WIDTH;
 };

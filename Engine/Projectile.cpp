@@ -1,4 +1,5 @@
 #include "Projectile.h"
+#include "Game.h"
 
 Projectile::Projectile(int in_x, int in_y, int in_id) {
 	posY = in_y - HEIGHT;
@@ -27,6 +28,8 @@ int Projectile::Update(std::vector<Enemy>& enemies) {
 			BOTTOM >= enemy.GetY()) {
 			hitEnemy = true;
 			enemy.MarkForDeletion();
+			Game::IncrementScore();
+			break;
 		}
 	}
 
@@ -37,9 +40,5 @@ int Projectile::Update(std::vector<Enemy>& enemies) {
 }
 
 void Projectile::Draw(Graphics& gfx) const {
-	for(int y = posY; y < posY + HEIGHT; ++y) {
-		for(int x = posX; x < posX + WIDTH; ++x) {
-			gfx.PutPixel(x, y, Colors::Red);
-		}
-	}
+	gfx.DrawRect(posX, posY, WIDTH, HEIGHT, Colors::Red);
 }

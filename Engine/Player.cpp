@@ -1,8 +1,9 @@
 #include "Player.h"
 #include "Colors.h"
+#include "Game.h"
 
 void Player::Update(Keyboard& kbd, std::vector<Enemy>& enemies) {
-	fireCooldown += ft.Mark();
+	fireCooldown += Game::GetDeltaTime();
 	if(kbd.KeyIsPressed(VK_SPACE) && fireCooldown >= 0.4f) {
 		projectiles.push_back(Projectile(posX + (WIDTH / 2), ELEVATION, nextProjectileID));
 		fireCooldown = 0;
@@ -20,11 +21,7 @@ void Player::Update(Keyboard& kbd, std::vector<Enemy>& enemies) {
 }
 
 void Player::Draw(Graphics& gfx) const {
-	for(int y = ELEVATION; y < ELEVATION + HEIGHT; ++y) {
-		for(int x = posX; x < posX + WIDTH; ++x) {
-			gfx.PutPixel(x, y, Colors::Blue);
-		}
-	}
+	gfx.DrawRect(posX, ELEVATION, WIDTH, HEIGHT, Colors::Blue);
 
 	for(const Projectile& p : projectiles) {
 		p.Draw(gfx);

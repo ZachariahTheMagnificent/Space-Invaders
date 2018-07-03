@@ -15,6 +15,6 @@ private:
 	int id;
 
 	static constexpr int SPEED = 10;
-	static constexpr int WIDTH = 5;
-	static constexpr int HEIGHT = 20;
+	static constexpr int WIDTH = 7;
+	static constexpr int HEIGHT = 25;
 };

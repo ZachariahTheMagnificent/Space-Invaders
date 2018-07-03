@@ -6,11 +6,7 @@ Enemy::Enemy(const int in_x, const int in_y) {
 }
 
 void Enemy::Draw(Graphics& gfx) const {
-	for(int y = posY; y < posY + HEIGHT; ++y) {
-		for(int x = posX; x < posX + WIDTH; ++x) {
-			gfx.PutPixel(x, y, Colors::Green);
-		}
-	}
+	gfx.DrawRect(posX, posY, WIDTH, HEIGHT, Colors::Yellow);
 }
 
 int Enemy::Update() {

@@ -11,7 +11,6 @@ public:
 	void Draw(Graphics& gfx) const;
 	static constexpr int ELEVATION = Graphics::ScreenHeight - 50;
 private:
-	FrameTimer ft;
 	std::vector<Projectile> projectiles;
 
 	static constexpr int SPEED = 3;
