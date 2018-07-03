@@ -31,19 +31,14 @@ void Enemy::Move() {
 	const float dt = Game::GetDeltaTime();
 
 	posX += (int)(horSpeed * dt);
-	if(horSpeed > 0) {
-		posX = std::min(posX, Graphics::ScreenWidth - WIDTH);
-	} else {
-		posX = std::max(posX, 0);
-	}
-
+	posY += (int)(vertSpeed * dt);
 	vertSpeed = 0.0f;
 }
 
 void Enemy::Update() {
 	if(posX < 0 || posX >= Graphics::ScreenWidth - WIDTH) {
 		horSpeed = -horSpeed;
-		vertSpeed = 60.0f;
+		vertSpeed = 80.0f;
 	}
 }
 
