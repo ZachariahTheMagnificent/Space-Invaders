@@ -29,21 +29,13 @@ Game::Game(MainWindow& wnd) : wnd(wnd), gfx(wnd) {
 	int x = X_BORDER;
 
 	for(int i = 0; i < ENEMY_COUNT; ++i) {
-		enemies.push_back(new Enemy(x, y));
+		enemies.push_back(Enemy(x, y));
 
 		x += Enemy::WIDTH + ENEMY_SPACING;
 		if(x > Graphics::ScreenWidth - Enemy::WIDTH - X_BORDER) {
 			x = X_BORDER;
 			y += Enemy::HEIGHT + ENEMY_SPACING;
 		}
-	}
-}
-
-Game::~Game() {
-	enemies.erase(enemies.begin(), enemies.end());
-
-	for(int i = 0; i < enemies.size(); ++i) {
-		delete enemies[i];
 	}
 }
 
@@ -56,15 +48,15 @@ void Game::Go() {
 
 void Game::UpdateModel() {
 	player.Update(wnd.kbd, enemies);
-	for(Enemy* enemy : enemies) {
-		enemy->Update();
+	for(Enemy& enemy : enemies) {
+		enemy.Update();
 	}
 	explosions.erase(std::remove_if(explosions.begin(), explosions.end(), [](Explosion& e) { return e.Update(); }), explosions.end());
 
 	auto newEnd = enemies.end();
-	for(Enemy* enemy : enemies) {
-		if(enemy->IsDead()) {
-			enemy->OnDestroy();
+	for(Enemy& enemy : enemies) {
+		if(enemy.IsDead()) {
+			enemy.OnDestroy();
 			const auto back = *(newEnd - 1);
 			enemy = back;
 			--newEnd;
@@ -90,8 +82,8 @@ void Game::ComposeFrame() {
 	fpsUpdateCooldown += deltatime;
 
 	player.Draw(gfx);
-	for(Enemy* enemy : enemies) {
-		enemy->Draw(gfx);
+	for(Enemy& enemy : enemies) {
+		enemy.Draw(gfx);
 	}
 	for(Explosion& e : explosions) {
 		e.Draw(gfx);

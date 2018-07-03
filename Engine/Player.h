@@ -7,7 +7,7 @@
 
 class Player {
 public:
-	void Update(Keyboard& kbd, std::vector<Enemy*>& enemies);
+	void Update(Keyboard& kbd, std::vector<Enemy>& enemies);
 	void Draw(Graphics& gfx) const;
 	static constexpr int ELEVATION = Graphics::ScreenHeight - 50;
 private:

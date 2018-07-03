@@ -2,7 +2,7 @@
 #include "Colors.h"
 #include "Game.h"
 
-void Player::Update(Keyboard& kbd, std::vector<Enemy*>& enemies) {
+void Player::Update(Keyboard& kbd, std::vector<Enemy>& enemies) {
 	fireCooldown += Game::GetDeltaTime();
 	if(kbd.KeyIsPressed(VK_SPACE) && fireCooldown >= 0.4f) {
 		projectiles.push_back(Projectile(posX + (WIDTH / 2), ELEVATION, nextProjectileID));

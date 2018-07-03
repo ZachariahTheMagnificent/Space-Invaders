@@ -4,7 +4,6 @@
 class Enemy {
 public:
 	Enemy(const int in_x, const int in_y);
-	~Enemy();
 
 	void Draw(Graphics& gfx) const;
 
