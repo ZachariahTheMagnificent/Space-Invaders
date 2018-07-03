@@ -26,6 +26,7 @@
 #include "Player.h"
 #include "Enemy.h"
 #include "FrameTimer.h"
+#include "Explosion.h"
 
 class Game {
 public:
@@ -40,6 +41,7 @@ private:
 	/*  User Functions              */
 public:
 	static float GetDeltaTime();
+	static void CreateExplosion(int x, int y, int maximumRadius, int startRadius);
 	static void IncrementScore();
 	/********************************/
 private:
@@ -54,6 +56,7 @@ private:
 
 	Player player;
 	std::vector<Enemy> enemies;
+	static std::vector<Explosion> explosions;
 
 	static int score;
 

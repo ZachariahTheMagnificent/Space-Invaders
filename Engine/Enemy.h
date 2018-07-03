@@ -8,8 +8,7 @@ public:
 
 	void Draw(Graphics& gfx) const;
 
-	int UpdatePosition();
-	void UpdateSpeed();
+	int Update();
 
 	void MarkForDeletion();
 

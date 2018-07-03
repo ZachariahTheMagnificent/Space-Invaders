@@ -359,11 +359,11 @@ void Graphics::PutPixel(int x, int y, Color c) {
 void Graphics::DrawCircle(int centerX, int centerY, int radius, Color c) {
 	const int topLeftX = centerX - radius;
 	const int topLeftY = centerY - radius;
-	const int diameter = radius * 2;
+	const int diameter = (radius * 2) + 1;
 
 	for(int y = topLeftY; y < topLeftY + diameter; ++y) {
 		for(int x = topLeftX; x < topLeftX + diameter; ++x) {
-			const int DistanceSquared = pow(x - centerX, 2) - pow(y - centerY, 2);
+			const int DistanceSquared = (int)pow(centerX - x, 2) + (int)pow(centerY - y, 2);
 
 			if(DistanceSquared <= pow(radius, 2)) {
 				PutPixel(x, y, c);

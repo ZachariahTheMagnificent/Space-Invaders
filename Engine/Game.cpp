@@ -22,6 +22,7 @@
 #include "Game.h"
 float Game::deltatime = 0;
 int Game::score = 0;
+std::vector<Explosion> Game::explosions;
 
 Game::Game(MainWindow& wnd): wnd(wnd), gfx(wnd) {
 	int y = Y_BORDER;
@@ -47,15 +48,15 @@ void Game::Go() {
 
 void Game::UpdateModel() {
 	player.Update(wnd.kbd, enemies);
-	
-	for(Enemy& e : enemies) {
-		e.UpdateSpeed();
-	}
-	enemies.erase(std::remove_if(enemies.begin(), enemies.end(), [](Enemy& e) { return e.UpdatePosition(); }), enemies.end());
+	enemies.erase(std::remove_if(enemies.begin(), enemies.end(), [](Enemy& e) { return e.Update(); }), enemies.end());
 }
 
 float Game::GetDeltaTime() {
 	return deltatime;
+}
+
+void Game::CreateExplosion(int x, int y, int maximumRadius, int startRadius) {
+	explosions.push_back(Explosion(x, y, maximumRadius, startRadius));
 }
 
 void Game::IncrementScore() {
@@ -70,6 +71,7 @@ void Game::ComposeFrame() {
 	for(Enemy& enemy : enemies) {
 		enemy.Draw(gfx);
 	}
+	explosions.erase(std::remove_if(explosions.begin(), explosions.end(), [&](Explosion& e) { return e.Update(gfx); }), explosions.end());
 
 	if(fpsUpdateCooldown > 0.2f) {
 		fps = (int)round(1.0f / deltatime);
