@@ -54,16 +54,23 @@ void Game::UpdateModel() {
 	}
 	explosions.erase(std::remove_if(explosions.begin(), explosions.end(), [](Explosion& e) { return e.Update(); }), explosions.end());
 
-	auto newEnd = enemies.end();
-	for(Enemy& enemy : enemies) {
-		if(enemy.IsDead()) {
-			enemy.OnDestroy();
-			const auto back = *(newEnd - 1);
-			enemy = back;
-			--newEnd;
+	auto new_size = enemies.size ( );
+	for ( auto index = std::size_t { }; index < new_size; )
+	{
+		if ( enemies [ index ].IsDead ( ) )
+		{
+			enemies [ index ].OnDestroy ( );
+
+			// Override the dead enemy with an enemy at the end of the array.
+			enemies [ index ] = enemies [ new_size - 1 ];
+			--new_size;
+		}
+		else
+		{
+			++index;
 		}
 	}
-	enemies.erase(newEnd, enemies.end());
+	enemies.resize ( new_size );
 }
 
 float Game::GetDeltaTime() {
