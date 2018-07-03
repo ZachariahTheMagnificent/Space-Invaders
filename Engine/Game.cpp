@@ -24,18 +24,26 @@ float Game::deltatime = 0;
 int Game::score = 0;
 std::vector<Explosion> Game::explosions;
 
-Game::Game(MainWindow& wnd): wnd(wnd), gfx(wnd) {
+Game::Game(MainWindow& wnd) : wnd(wnd), gfx(wnd) {
 	int y = Y_BORDER;
 	int x = X_BORDER;
 
 	for(int i = 0; i < ENEMY_COUNT; ++i) {
-		enemies.push_back(Enemy(x, y));
+		enemies.push_back(new Enemy(x, y));
 
 		x += Enemy::WIDTH + ENEMY_SPACING;
 		if(x > Graphics::ScreenWidth - Enemy::WIDTH - X_BORDER) {
 			x = X_BORDER;
 			y += Enemy::HEIGHT + ENEMY_SPACING;
 		}
+	}
+}
+
+Game::~Game() {
+	enemies.erase(enemies.begin(), enemies.end());
+
+	for(int i = 0; i < enemies.size(); ++i) {
+		delete enemies[i];
 	}
 }
 
@@ -48,7 +56,14 @@ void Game::Go() {
 
 void Game::UpdateModel() {
 	player.Update(wnd.kbd, enemies);
-	enemies.erase(std::remove_if(enemies.begin(), enemies.end(), [](Enemy& e) { return e.Update(); }), enemies.end());
+	enemies.erase(std::remove_if(enemies.begin(), enemies.end(), [](Enemy* e) {
+		if(e->Update()) {
+			delete e;
+			return true;
+		} else {
+			return false;
+		}
+	}), enemies.end());
 	explosions.erase(std::remove_if(explosions.begin(), explosions.end(), [](Explosion& e) { return e.Update(); }), explosions.end());
 }
 
@@ -69,8 +84,8 @@ void Game::ComposeFrame() {
 	fpsUpdateCooldown += deltatime;
 
 	player.Draw(gfx);
-	for(Enemy& enemy : enemies) {
-		enemy.Draw(gfx);
+	for(Enemy* enemy : enemies) {
+		enemy->Draw(gfx);
 	}
 	for(Explosion& e : explosions) {
 		e.Draw(gfx);

@@ -12,7 +12,7 @@ bool Explosion::Update() {
 	updateCooldown += Game::GetDeltaTime();
 
 	if(radius < maxRadius) {
-		if(updateCooldown < 0.3f){
+		if(updateCooldown > 0.2f){
 			++radius;
 			std::mt19937 rng(time(0));
 

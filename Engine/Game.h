@@ -32,6 +32,7 @@ class Game {
 public:
 	Game(class MainWindow& wnd);
 	Game(const Game&) = delete;
+	~Game();
 	Game& operator=(const Game&) = delete;
 	void Go();
 private:
@@ -55,7 +56,7 @@ private:
 	int fps = 0;
 
 	Player player;
-	std::vector<Enemy> enemies;
+	std::vector<Enemy*> enemies;
 	static std::vector<Explosion> explosions;
 
 	static int score;
